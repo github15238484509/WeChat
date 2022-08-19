@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref } from "vue"
+import { onMounted, onUnmounted, ref, watch } from "vue"
 import { debounce, throttle } from "@/utils/index.js"
 import { getDomInfo } from "@/utils/index.js"
 
@@ -26,48 +26,72 @@ export function useResize(time = 300) {
         Width,
     }
 }
-export function useDrag(option = {
-    minX: 0,
-    maxX: 100000,
-    minY: 0,
-    maxY: 100000,
-    time: 50
-}) {
-    let { minX, maxX, minY, maxY, time } = option
+export function useDrag(option = {}) {
+    let { minX = 0,
+        maxX = document.body.clientWidth,
+        minY = 0,
+        maxY = document.body.clientHeight,
+        time = 50 } = option
+    let Height = ref(0)
+    let Width = ref(0)
     let Dom = ref(null)
     let x = ref(0)
     let y = ref(0)
 
     let CurrentX = 0
     let CurrentY = 0
-
+    let result = null
     function move(e) {
-        let disY = e.clientY - CurrentY - y.value
-        console.log(disY, "disy");
-        y.value += disY
-        setDomPostion(0, y.value)
+        let disY = e.clientY - CurrentY
+        let disX = e.clientX - CurrentX
+        y.value = disY
+        x.value = disX
+        if (y.value < minY) {
+            y.value = minY
+        }
+        if (y.value >= maxY - result.height) {
+            y.value = maxY - result.height
+        }
+        if (x.value < minX) {
+            x.value = minX
+        }
+        if (x.value >= maxX - result.width) {
+            x.value = maxX - result.width
+        }
+        if (maxX == minX) {
+            x.value = minX
+        }
+        if (minY == maxY) {
+            y.value = minY
+        }
     }
-    function up() {
+    function up(e) {
+        CurrentX = x.value
+        CurrentY = y.value
         document.removeEventListener("mouseup", up)
         document.removeEventListener("mousemove", newMove)
     }
     let newMove = throttle(move, time)
     function down(e) {
-        let result = getDomInfo(Dom.value)
-        console.log(e);
-        CurrentX = e.clientX
-        CurrentY = e.clientY
-        // console.log(CurrentY,"CurrentYCurrentY");
-        // offsetX = e.offsetX
-        // offsetY = e.offsetY
+        result = getDomInfo(Dom.value)
+        CurrentX = e.clientX - x.value
+        CurrentY = e.clientY - y.value
         document.addEventListener("mousemove", newMove)
         document.addEventListener("mouseup", up)
     }
+    watch(x, () => {
+        setDomPostion(x.value, y.value)
+    })
+    watch(y, () => {
+        setDomPostion(x.value, y.value)
+    })
     function setDomPostion(x, y) {
-        // console.log(x, y);
         Dom.value.style = `transform: translate(${x}px,${y}px);`
     }
     onMounted(() => {
+        let result = Dom.value.getBoundingClientRect()
+        Height.value = result.height
+        Width.value = result.width
         Dom.value.addEventListener("mousedown", down)
         setDomPostion(x.value, y.value)
     })
@@ -76,7 +100,11 @@ export function useDrag(option = {
     })
 
     return {
-        Dom
+        Dom,
+        x,
+        y,
+        Height,
+        Width
     }
 }
 

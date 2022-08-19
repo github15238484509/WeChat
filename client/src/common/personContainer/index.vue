@@ -1,14 +1,14 @@
 <template>
     <div ref="personContainer" @wheel="move($event)" class="personContainer-container">
         <slot></slot>
-        <span class="side" ref="dragDom" v-show="isSideShow" ></span>
-        <!-- :style="sidePostion" -->
+        <span class="side" ref="dragDom" v-show="isSideShow"></span>
     </div>
 </template>
 <script setup>
 import { ref, onMounted, computed, watch } from "vue"
-import { useResize,useDrag } from "@/hooks/resize.js"
+import { useResize, useDrag } from "@/hooks/resize.js"
 import { throttle } from "@/utils/index.js"
+import { getDomInfo } from "@/utils/index.js"
 let propData = defineProps({
     height: {
         type: Number,
@@ -19,37 +19,30 @@ let emit = defineEmits(['change'])
 
 
 let { Dom: personContainer, Height: containerHeight } = useResize()//返回一个dom的信息
-
 let isSideShow = computed(() => {
     return propData.height > containerHeight.value
 })
 
-let { Dom: dragDom} = useDrag()
+let { Dom: dragDom, y, Height } = useDrag({
+    maxX: 0,
+    minY: 0,
+})
 
-
-
-
-
-let sideTop = ref(0)
-watch(sideTop, (newValue) => {
+watch(y, (newValue) => {
     if (isSideShow) {
         emit("change", newValue)
     }
 })
 let move = throttle(function (e) {
-    return
-    let result = e.wheelDeltaY > 0 ? -5 : 5
-    sideTop.value += result
-    if (sideTop.value < 0) {
-        sideTop.value = 0
+    let result = e.wheelDeltaY > 0 ? -15 : 15
+    y.value += result
+    if (y.value < 0) {
+        y.value = 0
     }
-    if (sideTop.value >= containerHeight.value) {
-        sideTop.value = containerHeight.value
+    if (y.value >= containerHeight.value - Height.value) {
+        y.value = containerHeight.value - Height.value
     }
-}, 20)
-let sidePostion = computed(() => {
-    return `transform: translate(0,${sideTop.value}px);`
-})
+}, 10)
 
 
 </script>
@@ -61,12 +54,11 @@ let sidePostion = computed(() => {
     background-color: red;
     position: relative;
     user-select: none;
+
     .side {
-        width: 50px;
         height: 50px;
-        // height: 50px;
-        // width: 10px;
-        // border-radius: 5px;
+        width: 10px;
+        border-radius: 5px;
         background-color: aqua;
         position: absolute;
         right: 0;
