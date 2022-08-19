@@ -4,14 +4,13 @@
         <template v-slot:left>
             <SideInfo></SideInfo>
         </template>
-        <template>
-            <router-view></router-view>
-        </template>
+        <router-view></router-view>
     </LayoutInfo>
 </template>
 <script setup>
-import LayoutInfo from "@/comom/layout/index.vue"
+import LayoutInfo from "@/common/layout/index.vue"
 import SideInfo from "@/components/side/index.vue"
+import PersonInfo from "@/components/person/index.vue"
 
 </script>
 <style lang="less" scoped>

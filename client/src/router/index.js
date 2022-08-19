@@ -4,8 +4,15 @@ import { createWebHistory, createRouter } from "vue-router"
 let routes = [{
     path: "/",
     component: () => import("@/page/index.vue"),
-    // children: [
-    // ],
+    children: [
+        {
+            path: "/",
+            component: () => import("@/page/children/index.vue"),
+            meta: {
+                IsShowSide: true
+            }
+        }
+    ],
 },
 {
     path: "/login",

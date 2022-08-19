@@ -19,7 +19,7 @@
     </div>
 </template>
 <script setup>
-import IconInfo from "@/icon/index.vue"
+import IconInfo from "@/common/icon/index.vue"
 import useIconInfo from "@/store/iconInfo.js"
 let info = useIconInfo() // 获取图标信息
 </script>
@@ -58,7 +58,7 @@ let info = useIconInfo() // 获取图标信息
                 text-align: center;
                 cursor: pointer;
                 color: rgb(233, 231, 227);
-
+                margin: 10px 0;
                 &:hover {
                     color: white;
                 }

@@ -16,9 +16,17 @@ let icons = {
     file: "icon-wenjianjia",
     message: "icon-xiaoxi1",
     xiaochengxu: "icon-xiaochengxu",
+
+    success: "icon-success",
+    error: "icon-error",
+    warn: "icon-warn",
+    primary: "icon-exe-array-primary",
 }
 defineProps({
-    icon: String,
+    icon: {
+        type:String,
+        require:true
+    },
     num: {
         type: Number,
         define: 0
@@ -27,12 +35,8 @@ defineProps({
 </script>
 <style lang="less" scoped>
 .icon-container {
-    width: 100%;
-    height: 100%;
     position: relative;
     text-align: center;
-    margin: 10px 0;
-
     .num {
         width: 1.2rem;
         height: 1.2rem;
