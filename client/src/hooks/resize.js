@@ -41,18 +41,9 @@ export function useDrag(option = {
     let CurrentX = 0
     let CurrentY = 0
 
-    let offsetX = 0
-    let offsetY = 0
-    let a = 0
     function move(e) {
-        // let disX = e.pageX - CurrentX 
         let disY = e.clientY - CurrentY - y.value
         console.log(disY, "disy");
-        // CurrentX = e.pageX
-        // CurrentY = e.pageY
-        // console.log(disX,disY);
-
-        // x.value += disX
         y.value += disY
         setDomPostion(0, y.value)
     }
