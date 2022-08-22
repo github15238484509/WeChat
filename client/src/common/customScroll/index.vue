@@ -1,6 +1,10 @@
 <template>
-    <div ref="personContainer" @wheel="move($event)" class="personContainer-container">
-        <slot></slot>
+    <div ref="personContainer" @wheel.passive="move($event)" class="personContainer-container">
+        <div class="personContainerList" :style="{
+            height:height+'px'
+        }">
+            <slot></slot>
+        </div>
         <span class="side" ref="dragDom" v-show="isSideShow"></span>
     </div>
 </template>
@@ -64,7 +68,7 @@ let move = throttle(function (e) {
         right: 0;
         top: 0;
         cursor: pointer;
-        // opacity: 0;
+        opacity: 0;
         transition: opacity 0.8s cubic-bezier(0.36, 0.18, 1, 0.62);
     }
 

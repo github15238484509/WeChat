@@ -2,7 +2,7 @@
     <div class="index-container">
         <div class="indexContainer">
             <PersonContainer @change="cahnge">
-                <PersonInfo></PersonInfo>
+                <PersonInfo :data="HistoryPerson.data" ></PersonInfo>
             </PersonContainer>
         </div>
         <!-- <div class="rightContainer">
@@ -11,12 +11,20 @@
     </div>
 </template>
 <script setup>
-import PersonContainer from "@/common/personContainer/index.vue"
+import PersonContainer from "@/common/customScroll/index.vue"
 import PersonInfo from "@/components/person/index.vue"
+import useHistoryPerson from "@/store/historyPerson.js";
+let HistoryPerson = useHistoryPerson()
+console.log(HistoryPerson.data, 545646);
+
 
 function cahnge(value) {
     console.log(value);
 }
+
+
+
+
 </script>
 <style lang="less" scoped>
 .index-container {

@@ -1,10 +1,16 @@
 <template>
     <div class="person-container">
-        4465
+        <PersonItem v-for="item in data" :key="item.id" :data="item"></PersonItem>
     </div>
 </template>
 
 <script setup>
+import PersonItem from "./personItem.vue"
+defineProps({
+    data:{
+        type:Array,
+    }
+})
 </script>
 <style scoped lang="less">
 .person-container {
