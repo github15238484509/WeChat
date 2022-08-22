@@ -10,7 +10,6 @@
 <script setup>
 import LayoutInfo from "@/common/layout/index.vue"
 import SideInfo from "@/components/side/index.vue"
-import PersonInfo from "@/components/person/index.vue"
 
 </script>
 <style lang="less" scoped>

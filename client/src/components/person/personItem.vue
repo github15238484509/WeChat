@@ -1,17 +1,17 @@
 <template >
     <div class="person-item-container" :class="{
-        active: active
+        active: false
     }">
         <div class="img">
             <MyImg :src="data.src"></MyImg>
         </div>
         <div class="item-info">
             <div class="name-time">
-                <p class="title">{{data.name}}</p>
-                <span class="time">{{data.time}}</span>
+                <p class="title">{{ data.name }}</p>
+                <span class="time">{{ data.time }}</span>
             </div>
             <div class="message">
-                {{data.message}}
+                {{ data.message }}
             </div>
         </div>
     </div>
@@ -24,10 +24,6 @@ defineProps({
         type: Object,
         default: {}
     },
-    active: {
-        type: Boolean,
-        default: false
-    }
 })
 </script>
 <style scoped lang="less">
@@ -36,8 +32,7 @@ defineProps({
     height: 50px;
     display: flex;
     background-color: rgba(333, 333, 333, 1);
-
-    // background-color: rgba(222, 222, 222, 1);
+    border-bottom: 2px solid rgba(222, 222, 222, 1);
     padding: 5px;
     box-sizing: border-box;
     cursor: pointer;
@@ -45,7 +40,6 @@ defineProps({
     &.active,
     &:hover {
         background-color: rgba(222, 222, 222, 1);
-        // background-color: rgba(333, 333, 333, 1);
     }
 
     .img {

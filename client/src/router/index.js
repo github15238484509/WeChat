@@ -11,6 +11,14 @@ let routes = [{
             meta: {
                 IsShowSide: true
             }
+        },
+        {
+            path: "chat/:id",
+            name: "chat",
+            component: () => import("@/page/children/chat/index.vue"),
+            meta: {
+                IsShowSide: true
+            }
         }
     ],
 },

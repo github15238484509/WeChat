@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref, watch } from "vue"
+import { onMounted, onUnmounted, ref, watch,onBeforeUnmount } from "vue"
 import { debounce, throttle } from "@/utils/index.js"
 import { getDomInfo } from "@/utils/index.js"
 
@@ -17,7 +17,7 @@ export function useResize(time = 300) {
         resize()
         window.addEventListener("resize", newFn)
     })
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
         window.removeEventListener("resize", newFn)
     })
     return {
@@ -95,8 +95,8 @@ export function useDrag(option = {}) {
         Dom.value.addEventListener("mousedown", down)
         setDomPostion(x.value, y.value)
     })
-    onUnmounted(() => {
-        Dom.removeEventListener("mousedown", down)
+    onBeforeUnmount(() => {
+        Dom.value.removeEventListener("mousedown", down)
     })
 
     return {
