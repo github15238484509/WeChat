@@ -14,8 +14,7 @@ import {myEncode} from "@/utils/index.js"
 let HistoryPerson = useHistoryPerson()
 let router = useRouter()
 function itemClick(item) {
-    console.log(item);
-    router.push(`/chat/${myEncode(item.id)}`)
+    router.push(`/chat/${myEncode(String(item.id))}`)
 }
 </script>
 <style lang="less" scoped>

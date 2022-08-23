@@ -2,7 +2,9 @@
     <div ref="personContainer" @wheel.passive="move($event)" class="personContainer-container">
             <slot :data="rightData"  v-if="data.length !== 0"></slot>
         <loading v-else></loading>
-        <span class="side" ref="dragDom" :hidden="isSideShow"></span>
+        <span class="side" ref="dragDom" :style="{
+        opacity:isSideShow  
+        }"></span>
     </div>
 </template>
 <script setup>
@@ -28,7 +30,7 @@ let totalHeight = computed(() => {
     return propData.data.length * propData.height
 })
 let isSideShow = computed(() => {
-    return totalHeight.value > containerHeight.value ? false : true
+    return totalHeight.value > containerHeight.value ? "inherit" : 0
 })
 
 let { Dom: dragDom, y, Height } = useDrag({
@@ -51,6 +53,7 @@ let move = throttle(function (e) {
     if (y.value >= containerHeight.value - Height.value) {
         y.value = containerHeight.value - Height.value
     }
+    return false
 }, 10)
 
 

@@ -21,6 +21,8 @@ let icons = {
     error: "icon-error",
     warn: "icon-warn",
     primary: "icon-exe-array-primary",
+
+    sandian:"icon-shenglve"
 }
 defineProps({
     icon: {

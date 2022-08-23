@@ -9,7 +9,7 @@ Mock.mock("/api/historyList", "get", (parasm) => {
         "data|30": [
             {
                 "name": "@ctitle",
-                "id": "@guid",
+                "id|+1": 1,
                 "time": "10:20",
                 "message": "'@sentence(3, 5)",
                 "src": Mock.Random.dataImage(),

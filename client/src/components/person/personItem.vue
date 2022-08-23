@@ -1,6 +1,6 @@
 <template >
     <div class="person-item-container" :class="{
-        active: false
+        active: acitve
     }">
         <div class="img">
             <MyImg :src="data.src"></MyImg>
@@ -19,12 +19,24 @@
 
 <script setup>
 import MyImg from "@/common/none/indexImg.vue"
-defineProps({
+import { computed, ref, watch, onMounted } from "vue"
+import { useRoute, onBeforeRouteUpdate } from "vue-router"
+import { myDecode } from "@/utils/index.js"
+let propData = defineProps({
     data: {
         type: Object,
         default: {}
     },
 })
+let Route = useRoute()
+let acitve = ref(false)
+function setAcitve() {
+    acitve.value = propData.data.id === Number(myDecode(Route.params.id))
+}
+watch(Route, setAcitve)
+onMounted(setAcitve)
+
+
 </script>
 <style scoped lang="less">
 .person-item-container {
