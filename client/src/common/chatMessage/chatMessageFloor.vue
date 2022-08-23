@@ -3,7 +3,7 @@
         <div class="headIcon">
             <!-- 4564 -->
         </div>
-        <div class="content" @paste="paste" contenteditable ref="content">
+        <div class="content" @paste="paste" @drop="drop" contenteditable ref="content">
             4564
         </div>
         <div class="send">
@@ -16,7 +16,7 @@
 import PersonContainer from "@/components/person/index.vue"
 import { useRouter, useRoute, onBeforeRouteUpdate, } from "vue-router";
 import { myDecode } from "@/utils/index.js"
-import { onMounted, ref, watch, computed } from "vue"
+import { onMounted, ref, watch, computed, reactive } from "vue"
 import useHistoryPerson from "@/store/historyPerson.js"
 let Router = useRouter()
 let Route = useRoute()
@@ -25,24 +25,44 @@ let content = ref(null)
 function send() {
     console.log(444);
 }
-function paste(e) {
-    console.log(e);
-    if (!(e.clipboardData && e.clipboardData.items)) {
-        return;
-    }
-    for (var i = 0, len = e.clipboardData.items.length; i < len; i++) {
-        var item = e.clipboardData.items[i];
-        console.log(item);
+
+
+let dropPaste = reactive({
+    content: null,
+    type: null,//string file url
+})
+watch(dropPaste, () => {
+    console.log(dropPaste);
+})
+function dropPsateDispose(data) {
+    for (var i = 0, len = data.length; i < len; i++) {
+        var item = data[i];
         if (item.kind === "string" && item.type === "text/plain") {
             item.getAsString(function (str) {
-                console.log("字符", str);
+                dropPaste.content = str
+                dropPaste.type = "string"
             })
         } else if (item.kind === "file") {
             var pasteFile = item.getAsFile();
-            console.log("文件", pasteFile);
+            if (pasteFile.type) {
+                dropPaste.content = pasteFile
+                dropPaste.type = pasteFile.type
+            }
         }
     }
-    // return false
+}
+function paste(e) {
+    e.preventDefault()
+    if (!(e.clipboardData && e.clipboardData.items)) {
+        return;
+    }
+    let result = e.clipboardData.items
+    dropPsateDispose(result)
+}
+function drop(e) {
+    e.preventDefault()
+    let result = e.dataTransfer.items
+    dropPsateDispose(result)
 }
 </script>
 <style scoped lang="less">

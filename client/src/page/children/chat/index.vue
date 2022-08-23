@@ -1,6 +1,6 @@
 <template >
     <div class="chat-container">
-        <!-- <PersonContainer></PersonContainer> -->
+        <PersonContainer></PersonContainer>
         <div class="rightContainer">
             <div class="content">
                 <ChatMessageHeader @iconClick="iconClick" name="46" :num="13" icon="sandian">
