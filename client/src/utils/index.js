@@ -36,3 +36,19 @@ export function myDecode(text) {
 export function getDomInfo(dom) {
     return dom.getBoundingClientRect()
 }
+
+// 判断一个元素的父级是不是他
+export function isParentnode(childe, parent) {
+    if (childe === null) {
+        return false
+    }
+    let childeNode = childe.parentElement
+    while (childeNode) {
+        if (childeNode === parent) {
+            return true
+        } else {
+            childeNode = childeNode.parentElement
+        }
+    }
+    return false
+}

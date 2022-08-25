@@ -15,8 +15,8 @@
 <script setup>
 import PersonContainer from "@/components/person/index.vue"
 import { useRouter, useRoute, onBeforeRouteUpdate, } from "vue-router";
-import { myDecode } from "@/utils/index.js"
-import { onMounted, ref, watch, computed, reactive } from "vue"
+import { isParentnode } from "../../utils/index.js"
+import { onMounted, ref, watch, computed, reactive, onBeforeUnmount } from "vue"
 import useHistoryPerson from "@/store/historyPerson.js"
 let Router = useRouter()
 let Route = useRoute()
@@ -31,9 +31,16 @@ let dropPaste = reactive({
     content: null,
     type: null,//string file url
 })
-watch(dropPaste, () => {
-    console.log(dropPaste);
-})
+function setTextFile() {
+    if (dropPaste.type === "string") {
+        if (content.value.childNodes.length === 0) {
+            insertDomInfo.insert.appendData(dropPaste.content)
+            content.value.appendChild(insertDomInfo.insert)
+        } else {
+            insertDomInfo.insert.insertData(insertDomInfo.index, dropPaste.content)
+        }
+    }
+}
 function dropPsateDispose(data) {
     for (var i = 0, len = data.length; i < len; i++) {
         var item = data[i];
@@ -41,17 +48,21 @@ function dropPsateDispose(data) {
             item.getAsString(function (str) {
                 dropPaste.content = str
                 dropPaste.type = "string"
+                setTextFile()
             })
         } else if (item.kind === "file") {
             var pasteFile = item.getAsFile();
             if (pasteFile.type) {
                 dropPaste.content = pasteFile
                 dropPaste.type = pasteFile.type
+                setTextFile()
             }
         }
     }
 }
 function paste(e) {
+    console.log(e);
+    return
     e.preventDefault()
     if (!(e.clipboardData && e.clipboardData.items)) {
         return;
@@ -60,10 +71,36 @@ function paste(e) {
     dropPsateDispose(result)
 }
 function drop(e) {
+    return
     e.preventDefault()
     let result = e.dataTransfer.items
     dropPsateDispose(result)
 }
+
+let insertDomInfo = reactive({
+    insert: null,
+    left: null,
+    right: null
+})
+function selectionchange() {
+    let selection = document.getSelection();
+    let { anchorNode, anchorOffset, } = selection;
+    if (isParentnode(anchorNode, content.value)) {
+        let start = anchorNode.substringData(0, anchorOffset)
+        let end = anchorNode.substringData(anchorOffset, anchorNode.length)
+        start = document.createTextNode(start)
+        end = document.createTextNode(end)
+        insertDomInfo.insert = anchorNode
+        insertDomInfo.index = anchorOffset
+    }
+}
+onMounted(() => {
+    document.addEventListener("selectionchange", selectionchange)
+})
+onBeforeUnmount(() => {
+    document.removeEventListener("selectionchange", selectionchange)
+})
+
 </script>
 <style scoped lang="less">
 .chatMessageFloor-container {

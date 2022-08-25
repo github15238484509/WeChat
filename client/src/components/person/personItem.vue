@@ -31,7 +31,11 @@ let propData = defineProps({
 let Route = useRoute()
 let acitve = ref(false)
 function setAcitve() {
-    acitve.value = propData.data.id === Number(myDecode(Route.params.id))
+    try{
+        acitve.value = propData.data.id === Number(myDecode(Route.params.id))
+    }catch{
+
+    }
 }
 watch(Route, setAcitve)
 onMounted(setAcitve)
