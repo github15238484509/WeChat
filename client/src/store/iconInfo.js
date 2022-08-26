@@ -4,32 +4,32 @@ export default defineStore("iconInfo", {
         return {
             topIcon: [{
                 icon: "message",
-                path: '',
+                path: '/lately',
                 num: 0,
             },
             {
                 icon: "haoyou",
-                path: '',
+                path: '/friend',
                 num: 0
             },
             {
                 icon: "pengyouquan",
-                path: '',
+                path: '/circle',
                 num: 0
             },
             {
                 icon: "shoucang",
-                path: '',
+                path: '/collect',
                 num: 0
             }],
             bottomIcon: [{
                 icon: "file",
-                path: '',
+                path: '/file',
                 num: 0
             },
             {
                 icon: "xiaochengxu",
-                path: '',
+                path: '/applet',
                 num: 0
             },]
         }
@@ -43,6 +43,6 @@ export default defineStore("iconInfo", {
         }
     },
     getters: {
-       
+
     }
 })

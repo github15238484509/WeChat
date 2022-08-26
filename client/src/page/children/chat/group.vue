@@ -3,7 +3,7 @@
         <LatelyPerson></LatelyPerson>
         <div class="rightContainer">
             <div class="content">
-                <ChatMessageHeader @iconClick="iconClick" :name="nameInfo" icon="sandian">
+                <ChatMessageHeader @iconClick="iconClick" :name="46" :num="13" icon="sandian">
                 </ChatMessageHeader>
                 <div class="messageBox">
                     <ChatMessageContent :data="[]"></ChatMessageContent>
@@ -28,9 +28,8 @@ import { onMounted, ref, watch, computed } from "vue"
 import useHistoryLately from "@/store/historyLately.js";
 let Router = useRouter()
 let Route = useRoute()
-let HistoryLately = useHistoryLately()
 let id = ref("")
-let nameInfo = ref("")
+let HistoryLately = useHistoryLately()
 function getId() {
     try {
         let result = Number(myDecode(Route.params.id))
@@ -38,17 +37,22 @@ function getId() {
             throw Error("走你")
         }
         id.value = result
-        let personInfo = HistoryLately.data.filter((item) => {
-            return item.id === id.value
-        })
-        if (personInfo.length) {
-            nameInfo.value = personInfo[0].name
-        }
     } catch (error) {
         Router.back()
     }
 }
 
+//获取群聊的名字等信息
+let chat = computed(() => {
+    return HistoryLately.data.filter((item) => {
+        return item.id === id.value
+    })
+})
+let chatMessageHistory = computed(() => {
+    return HistoryLately.data.filter((item) => {
+        return item.id === id.value
+    })
+})
 function iconClick() {
     console.log(5555);
 }

@@ -6,12 +6,14 @@
         </div>
         <div class="iconList">
             <div class="iconTop">
-                <div class="iconItem" v-for="item in info.topIcon">
+                <div @click="handelIcon(item)" class="iconItem" :class="{ active: item.path.includes(Route.name) }"
+                    v-for="item in info.topIcon">
                     <IconInfo :icon="item.icon" :num="item.num"></IconInfo>
                 </div>
             </div>
             <div class="iconBottom ">
-                <div class="iconItem" v-for="item in info.bottomIcon">
+                <div @click="handelIcon(item)" class="iconItem" :class="{ active: item.path.includes(Route.name) }"
+                    v-for="item in info.bottomIcon">
                     <IconInfo :icon="item.icon" :num="item.num"></IconInfo>
                 </div>
             </div>
@@ -21,7 +23,16 @@
 <script setup>
 import IconInfo from "@/common/icon/index.vue"
 import useIconInfo from "@/store/iconInfo.js"
+import { useRouter, useRoute } from "vue-router"
 let info = useIconInfo() // 获取图标信息
+let Router = useRouter()
+let Route = useRoute()
+function handelIcon(item) {
+    if (item.path) {
+        console.log(item.path);
+        Router.push(item.path)
+    }
+}
 </script>
 <style lang="less" scoped>
 .side-container {

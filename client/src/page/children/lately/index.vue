@@ -1,6 +1,6 @@
 <template>
     <div class="index-container">
-        <PersonContainer></PersonContainer>
+        <LatelyPerson></LatelyPerson>
         <div class="rightContainer">
             <NoneImage></NoneImage>
         </div>
@@ -22,6 +22,6 @@ import NoneImage from "@/common/none/indexImg.vue"
     .rightContainer {
         flex: 1;
     }
- 
+
 }
 </style>

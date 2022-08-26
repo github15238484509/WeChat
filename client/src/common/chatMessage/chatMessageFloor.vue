@@ -13,11 +13,10 @@
 </template>
 
 <script setup>
-import PersonContainer from "@/components/person/index.vue"
+import LatelyPerson from "@/components/latelyPerson/index.vue"
 import { useRouter, useRoute, onBeforeRouteUpdate, } from "vue-router";
 import { isParentnode } from "../../utils/index.js"
 import { onMounted, ref, watch, computed, reactive, onBeforeUnmount } from "vue"
-import useHistoryPerson from "@/store/historyPerson.js"
 let Router = useRouter()
 let Route = useRoute()
 let content = ref(null)

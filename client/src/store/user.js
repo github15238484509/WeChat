@@ -1,12 +1,15 @@
 import { defineStore } from "pinia"
 import { whoami } from "@/api/user.js"
-import useHistoryPerson from "./historyPerson.js"
+import useHistoryLately from "./historyLately.js"
+import useFriend from "./friend.js"
 async function setUserinfo(context, user) {
     context.user = user.data
     // 获取最近的聊天记录
-    let HistoryPerson = useHistoryPerson()
-    HistoryPerson.getHistoryPerson()
+    let HistoryPerson = useHistoryLately()
+    HistoryPerson.getHistoryLately()
     // 获取用户列表
+    let friend = useFriend()
+    friend.getFriend()
 }
 export default defineStore("userInfo", {
     state: () => {

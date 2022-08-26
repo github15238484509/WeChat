@@ -13,7 +13,8 @@ Mock.mock("/api/historyList", "get", (parasm) => {
                 "time": "10:20",
                 "message": "'@sentence(3, 5)",
                 "src": Mock.Random.dataImage(),
-                "active": false
+                "active": false,
+                "type|1": [0, 1]
             }
         ]
     })

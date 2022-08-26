@@ -1,8 +1,8 @@
 import server from "../utils/request";
 
 // 获取用户列表
-export function getUsersList() {
-    return server.get("/api/usersList")
+export function getFriendList() {
+    return server.get("/api/friendList")
 }
 // 获取最近的聊天信息
 export function historyMessage() {

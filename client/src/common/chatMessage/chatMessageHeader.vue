@@ -3,7 +3,7 @@
         <div class="header">
             <div class="name">
                 {{ name }}
-                <span class="number">({{ num }})</span>
+                <span class="number" v-if="num">({{ num }})</span>
             </div>
             <div class="iconBox" @click="$emit('iconClick')">
                 <Icon :icon="icon"></Icon>
@@ -18,7 +18,6 @@ import Icon from "@/common/icon/index.vue"
 import { useRouter, useRoute, onBeforeRouteUpdate, } from "vue-router";
 import { myDecode } from "@/utils/index.js"
 import { onMounted, ref, watch, computed } from "vue"
-import useHistoryPerson from "@/store/historyPerson.js"
 
 
 let propData = defineProps({
@@ -42,7 +41,7 @@ defineEmits(["iconClick"])
 let Router = useRouter()
 let Route = useRoute()
 let id = ref("")
-let InfoData = useHistoryPerson()
+// let InfoData = useHistoryPerson()
 function getId() {
     try {
         let result = Number(myDecode(Route.params.id))
@@ -55,17 +54,11 @@ function getId() {
     }
 }
 //获取
-let chatData = computed(() => {
-    return InfoData.data.filter((item) => {
-        return item.id === id.value
-    })
-})
-let chatMessageHistory = computed(() => {
-    return InfoData.data.filter((item) => {
-        console.log(item);
-        return item.id === id.value
-    })
-})
+// let chatData = computed(() => {
+//     return InfoData.data.filter((item) => {
+//         return item.id === id.value
+//     })
+// })
 onMounted(getId)
 onBeforeRouteUpdate(getId)
 

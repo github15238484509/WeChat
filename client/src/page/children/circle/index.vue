@@ -1,9 +1,9 @@
 <template>
     <div class="index-container">
-        <PersonContainer></PersonContainer>
-        <div class="rightContainer">
+        <!-- <div class="rightContainer">
             <NoneImage></NoneImage>
-        </div>
+        </div> -->
+        circle
     </div>
 </template>
 <script setup>

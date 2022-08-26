@@ -1,6 +1,5 @@
 <template>
     <div class="index-container">
-        <PersonContainer></PersonContainer>
         <div class="rightContainer">
             <NoneImage></NoneImage>
         </div>
