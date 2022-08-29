@@ -1,1 +1,1 @@
-require("./class")
+require("./sync") //同步表
