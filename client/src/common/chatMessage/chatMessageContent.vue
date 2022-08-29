@@ -24,27 +24,33 @@ let data = [{
     name: '小刘',
     content: '小刘小刘小刘',
     isMe: false,
+    type: 'text'
 },
 {
     name: '小刘',
-    content: '小刘小刘小刘',
-    isMe: false
+    content: 'https://pinia.web3doc.top/logo.svg',
+    isMe: true,
+    type: 'image'
 }, {
     name: 'wadfa',
     content: '小刘小dfasfsa刘小刘',
-    isMe: true
+    isMe: false,
+    type: 'txt'
 }, {
     name: '小刘',
     content: 'adfasfasdfasd',
-    isMe: true
+    isMe: false,
+    type: 'video'
 }, {
     name: '小刘sadfa',
     content: '小刘小1231321刘小刘',
-    isMe: false
+    isMe: true,
+    type: 'audio'
 }, {
     name: 'asdf小adf刘',
     content: 'asf',
-    isMe: false
+    isMe: true,
+    type:'multiple'
 }, {
     name: '5456415616',
     content: '5465412323',

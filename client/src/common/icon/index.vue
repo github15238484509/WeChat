@@ -1,7 +1,7 @@
 
 <template>
     <div class="icon-container">
-        <samp class="num" v-if="num"> {{ num }}</samp>
+        <samp class="num" v-if="num"> {{  num  }}</samp>
         <span class="iconfont" :class="icons[icon]"></span>
     </div>
 </template>
@@ -22,12 +22,17 @@ let icons = {
     warn: "icon-warn",
     primary: "icon-exe-array-primary",
 
-    sandian:"icon-shenglve"
+    sandian: "icon-shenglve",
+    txt: "icon-24gl-fileText",
+    video: 'icon-shipin',
+    audio: 'icon-audio',
+    Unsupport: 'icon-shibaibaocuo',
+    image: 'icon-image',
 }
 defineProps({
     icon: {
-        type:String,
-        require:true
+        type: String,
+        require: true
     },
     num: {
         type: Number,
@@ -39,6 +44,9 @@ defineProps({
 .icon-container {
     position: relative;
     text-align: center;
+    width: 100%;
+    height: 100%;
+
     .num {
         width: 1.2rem;
         height: 1.2rem;
@@ -50,6 +58,10 @@ defineProps({
         right: 0;
         transform: translateX(-25%);
         top: 0;
+    }
+
+    .iconfont {
+        font-size: inherit;
     }
 }
 </style>

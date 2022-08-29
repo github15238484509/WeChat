@@ -3,7 +3,7 @@
         <LatelyPerson></LatelyPerson>
         <div class="rightContainer">
             <div class="content">
-                <ChatMessageHeader @iconClick="iconClick" :name="46" :num="13" icon="sandian">
+                <ChatMessageHeader @iconClick="iconClick" name="5+" :num="13" icon="sandian">
                 </ChatMessageHeader>
                 <div class="messageBox">
                     <ChatMessageContent :data="[]"></ChatMessageContent>

@@ -1,7 +1,10 @@
 <template >
     <div class="chatMessageFloor-container">
         <div class="headIcon">
-            <!-- 4564 -->
+            <label :for="item.id" v-for="item in icons">
+                <Icon :icon="item.icon"></Icon>
+                <input :accept="item.rule" :id="item.id" type="file">
+            </label>
         </div>
         <div class="content" @paste="paste" @drop="drop" contenteditable ref="content">
             4564
@@ -17,6 +20,7 @@ import LatelyPerson from "@/components/latelyPerson/index.vue"
 import { useRouter, useRoute, onBeforeRouteUpdate, } from "vue-router";
 import { isParentnode } from "../../utils/index.js"
 import { onMounted, ref, watch, computed, reactive, onBeforeUnmount } from "vue"
+import Icon from "@/common/icon/index.vue"
 let Router = useRouter()
 let Route = useRoute()
 let content = ref(null)
@@ -24,7 +28,23 @@ let content = ref(null)
 function send() {
     console.log(444);
 }
-
+let icons = [{
+    id: 'image',
+    icon: 'image',
+    rule: 'image/*'
+}, {
+    id: 'txt',
+    icon: 'txt',
+    rule: 'text/*'
+}, {
+    id: 'video',
+    icon: 'video',
+    rule: 'video/*'
+}, {
+    id: 'audio',
+    icon: 'audio',
+    rule: 'audio/*'
+},]
 
 let dropPaste = reactive({
     content: null,
@@ -115,6 +135,18 @@ onBeforeUnmount(() => {
     .send {
         height: 35px;
         line-height: 35px;
+    }
+
+    .headIcon {
+        display: flex;
+        label{
+            margin-right: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        input {
+            display: none;
+        }
     }
 
     .content {
