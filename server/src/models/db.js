@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const db = new Sequelize('wechat', 'root', '123123', {
+const db = new Sequelize('wechat', 'root', '123456', {
     host: 'localhost',
     dialect: 'mysql',
     // logging: false
