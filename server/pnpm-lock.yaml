@@ -8,6 +8,7 @@ specifiers:
   mysql2: ^2.3.3
   nodemon: ^2.0.19
   sequelize: ^6.21.4
+  uuid: ^8.3.2
 
 dependencies:
   cookie-parser: registry.npmmirror.com/cookie-parser/1.4.6
@@ -17,6 +18,7 @@ dependencies:
   mysql2: registry.npmmirror.com/mysql2/2.3.3
   nodemon: registry.npmmirror.com/nodemon/2.0.19
   sequelize: registry.npmmirror.com/sequelize/6.21.4_mysql2@2.3.3
+  uuid: registry.npmmirror.com/uuid/8.3.2
 
 packages:
 
