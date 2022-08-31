@@ -14,11 +14,14 @@ function getPath(path) {
     var mac = new qiniu.auth.digest.Mac(config.accessKey, config.secretKey);
     var config121 = new qiniu.conf.Config();
     var bucketManager = new qiniu.rs.BucketManager(mac, config121);
-    var deadline = parseInt(Date.now() / 1000) + 300; // 1小时过期
+    var publicDownloadUrl = bucketManager.publicDownloadUrl(config.domain, path);
+    var deadline = parseInt(Date.now() / 1000) + 300;
     var privateDownloadUrl = bucketManager.privateDownloadUrl(config.domain, path, deadline);
-    return privateDownloadUrl
+    return {
+        privateDownloadUrl,
+        publicDownloadUrl
+    }
 }
-
 /**
  * 
  * @param {上传到七牛云的名字} name 
@@ -41,7 +44,5 @@ function qiniuUpload(name, path) {
         });
     })
 }
+
 module.exports = qiniuUpload
-
-
-
