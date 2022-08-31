@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form">
+        <h2 class="form-signin-heading">上传文件</h2>
+        <input id="fulAvatar" name="file" type="file" class="form-control" />
+        <input id="fulAvatar" name="file1" type="text" class="form-control" />
+        <br />
+        <button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
+    </form>
+</body>
+<script>
+    let form = document.querySelector("#form")
+    form.onsubmit = function (e) {
+        e.preventDefault()
+        fetch("http://localhost:3000/upImg",{
+            method:"POST",
+            // body: JSON.stringify({
+            //     name:456
+            // })
+            body: new FormData(this)
+        })
+    }
+</script>
+
+</html>
