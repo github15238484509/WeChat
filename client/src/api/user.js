@@ -14,6 +14,15 @@ export function userHistory() {
 }
 
 //whoIam
-export function whoami(data) {
-    return server.post("/api/user/whoami",data)
+export function whoami() {
+    return server.post("/api/user/whoami")
+}
+export function register(data) {
+    return server.post("/api/user/register", data)
+}
+export function login(data) {
+    return server.post("/api/user/login", data)
+}
+export function logout(data) {
+    return server.post("/api/user/logout")
 }
