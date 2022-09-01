@@ -12,9 +12,15 @@ exports.publish = function (res, info = {}, maxAge = 3600) {
 }
 exports.verify = function (authorization) {
     try {
-        jwt.verify(authorization, secret)
-        return true
+        return {
+            status:true,
+            data:jwt.verify(authorization, secret),
+        }
     } catch (error) {
-        return error.message
+        return {
+            status:false,
+            data:null,
+            message:error.message
+        }
     }
 }

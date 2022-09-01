@@ -1,5 +1,5 @@
 module.exports = function (data, right = []) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         let obj = {}
         for (const key of right) {
             obj[key] = data[key] || resolve({

@@ -19,14 +19,7 @@ app.use(express.json({ extended: true }))
 //解析cookie
 app.use(cookieParser())
 
-app.post("/upImg", multipart({ uploadDir: config.temp }), async function (req, res) {
-    let file = req.files.file
-    let filePath = file.path
-    let type = path.extname(file.originalFilename);
-    let name = `${dayjs().format('YYYY-MM-DD')}/${dayjs().format('HH:mm:ss')}-46-${type}`
-    let result = await qiniuUpload(name, filePath)
-    res.send(result)
-})
+
 
 
 
@@ -35,8 +28,18 @@ app.use("/api/user", userRouter)
 
 app.all("*", function (req, res) {
     console.log(req.body, req.params, req.query, req.cookies);
-    res.send("4045")
+    res.send("404")
 })
 app.listen(config.port, function () {
     console.log(`http://localhost:${config.port}`);
 })
+
+// app.post("/upImg", multipart({ uploadDir: config.temp }), async function (req, res) {
+//     let file = req.files.file
+//     let filePath = file.path
+//     let type = path.extname(file.originalFilename);
+//     let name = `${dayjs().format('YYYY-MM-DD')}/${dayjs().format('HH:mm:ss')}-46-${type}`
+//     let result = await qiniuUpload(name, filePath)
+//     fs.unlinkSync(filePath)
+//     res.send(result)
+// })

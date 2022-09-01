@@ -36,7 +36,6 @@ function qiniuUpload(name, path) {
         const putExtra = new qiniu.form_up.PutExtra();
         formUploader.putFile(getToken(), name, path, putExtra, function (respErr, respBody, respInfo) {
             if (respInfo.statusCode == 200) {
-                fs.unlinkSync(path)
                 return resolve(getPath(respBody.key));
             } else {
                 return resolve(respErr);
