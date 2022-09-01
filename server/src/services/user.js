@@ -36,7 +36,7 @@ async function login(data) {
     if (result.status) {
         let user = await User.findOne({
             where: result.data,
-            attributes: ["id", "name", "status"]
+            attributes: ["id", "name", "status","profile"]
         });
         if (user) {
             user.status = true
@@ -89,7 +89,35 @@ async function logout(id) {
         message: "用户不存在"
     }
 }
+async function whoami(id) {
+    if (!id) {
+        return {
+            data: null,
+            status: false,
+            message: "id为空"
+        }
+    }
+    let user = await User.findOne({
+        where: {
+            id
+        },
+        attributes: ["id", "name", "status","profile"]
+    });
+    if (user) {
+        return {
+            data: user.toJSON(),
+            status: true,
+            message: '查找成功'
+        }
+    }
+    return {
+        data: null,
+        status: false,
+        message: "用户不存在"
+    }
+}
 module.exports.addUser = addUser
 module.exports.getUser = getUser
 module.exports.login = login
 module.exports.logout = logout
+module.exports.whoami = whoami

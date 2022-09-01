@@ -2,26 +2,43 @@
 let { verify } = require("../router/jwt")
 let { sendError } = require("./sendCode")
 function authorization(req, res, next) {
-    let token = getAuthorization(req)
-    if (!token) {
+    let authorization = getAuthorization(req)
+    if (!authorization) {
         return sendError(res, 401)
     }
-    let result = verify(token)
+    let result = verify(authorization.token)
     if (result.status) {
         req.id = result.data.id
         next()
     } else {
-        return sendError(res, 401)
+        result = verify(authorization.refresh_token)
+        if (result.status) {
+            req.id = result.data.id
+            next()
+        } else {
+            return sendError(res, 401)
+        }
     }
 }
 
 function getAuthorization(req) {
     let token = req.cookies.authorization
-    if (token) {
-        return token
-    } else {
-        return req.headers.authorization
+    let refresh_token = req.cookies.refresh_authorization
+    if (token && refresh_token) {
+        return {
+            token,
+            refresh_token
+        }
     }
+    token = req.headers.authorization
+    refresh_token = req.headers.refresh_authorization
+    if (token && refresh_token) {
+        return {
+            token,
+            refresh_token
+        }
+    }
+    return null
 }
 module.exports.authorization = authorization
 

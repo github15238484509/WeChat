@@ -22,6 +22,10 @@ const ClassGrand = db.define("users", {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
+    profile: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    }
 }, {
     paranoid: true
 })

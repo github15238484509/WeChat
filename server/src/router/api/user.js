@@ -1,8 +1,8 @@
 let router = require("express").Router()
-let { addUser, getUser, login, logout } = require("../../services/user")
+let { addUser, getUser, login, logout, whoami } = require("../../services/user")
 let { sendError, sendOk, sendOkError } = require("../../utils/sendCode")
 let filterObject = require("../../utils/filterObj.js")
-let { publish } = require("../jwt.js")
+let { publish, clearPublish } = require("../jwt.js")
 let { authorization } = require("../../utils/authorization")
 router.post("/login", async function (req, res) {
     let body = req.body
@@ -27,17 +27,26 @@ router.post("/logout", authorization, async function (req, res) {
         if (!user.status) {
             return sendOkError(res, user.message)
         }
-        res.cookie("authorization", '', {
-            maxAge:0,
-            path: "/"
-        })
-        res.header("authorization", "")
+        clearPublish(res)
         return sendOkError(res, user.message)
     } else {
         return sendOkError(res, '退出失败')
     }
 })
 
+router.post("/whoami", authorization, async function (req, res) {
+    let id = req.id
+    if (id) {
+        let result = await whoami(id)
+        if (!result.status) {
+            return sendOkError(res, result.message)
+        }
+        publish(res, { id: result.data.id })
+        return sendOk(res, result.data, result.message)
+    } else {
+        return sendOkError(res, '查找失败')
+    }
+})
 
 router.post("/register", async function (req, res) {
     let body = req.body
