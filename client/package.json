@@ -16,6 +16,7 @@
     "mockjs": "^1.1.0",
     "pinia": "^2.0.18",
     "pinyin": "2.11",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue": "^3.2.37",
     "vue-router": "4"
   },

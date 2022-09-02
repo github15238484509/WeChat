@@ -28,6 +28,7 @@ let icons = {
     audio: 'icon-audio',
     Unsupport: 'icon-shibaibaocuo',
     image: 'icon-image',
+    yanjing:"icon-xiaoyanjing"
 }
 defineProps({
     icon: {
@@ -46,7 +47,9 @@ defineProps({
     text-align: center;
     width: 100%;
     height: 100%;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .num {
         width: 1.2rem;
         height: 1.2rem;
