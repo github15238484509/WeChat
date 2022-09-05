@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router"
-
+import useUser from "@/store/user.js"
 
 let routes = [{
     path: "/",
@@ -79,10 +79,23 @@ let routes = [{
 },
 {
     path: "/login/:type?",
+    name: "login",
     component: () => import("@/page/children/login/index.vue"),
 }]
 let router = createRouter({
     history: createWebHistory(),
     routes
+})
+router.beforeEach((to, from, next) => {
+    let sotre = useUser()
+    console.log(to, sotre.status);
+    if (sotre.status === false) {
+        return next("/login")
+    } else if (sotre.status === 'loading...' && to.name === "login") {
+        return next(false)
+    } else {
+        return next()
+    }
+    next()
 })
 export default router
