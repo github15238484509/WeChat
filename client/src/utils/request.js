@@ -28,16 +28,17 @@ instance.interceptors.response.use((config) => {
 }, (error) => {
     let data = error.response
     if (data.status === 401) {
-        router.push({
-            path: '/login',
-            query: {
-                redirect: router.currentRoute.fullPath
-            }
+        showMessage({
+            type: 'error',
+            text: data.data.message,
+            duration: 1000
         }).then(() => {
-            showMessage({
-                type: 'error',
-                text: data.data.message,
-                duration: 1000
+            console.log(router.currentRoute.value);
+            router.push({
+                path: '/login',
+                query: {
+                    redirect: router.currentRoute.value.path
+                }
             })
         })
     }

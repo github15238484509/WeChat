@@ -88,14 +88,19 @@ let router = createRouter({
 })
 router.beforeEach((to, from, next) => {
     let sotre = useUser()
-    console.log(to, sotre.status);
-    if (sotre.status === false) {
-        return next("/login")
-    } else if (sotre.status === 'loading...' && to.name === "login") {
-        return next(false)
+    if (to.name === "login") {
+        if (sotre.status === false) {
+            next()
+        } else {
+            next("/")
+        }
     } else {
-        return next()
+        if (sotre.status === false) {
+            console.log(router);
+            next("/login")
+        } else {
+            next()
+        }
     }
-    next()
 })
 export default router

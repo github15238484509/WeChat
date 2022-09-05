@@ -34,7 +34,7 @@ export default defineStore("iconInfo", {
             },
             {
                 icon: "tuichu",
-                path: '',
+                path: '/login',
                 num: 0,
                 fn:'showLogout'
             },
