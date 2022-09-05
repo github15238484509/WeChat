@@ -24,13 +24,20 @@
 import IconInfo from "@/common/icon/index.vue"
 import useIconInfo from "@/store/iconInfo.js"
 import { useRouter, useRoute } from "vue-router"
+import showObj from "@/utils/showComponent.js"
 let info = useIconInfo() // 获取图标信息
 let Router = useRouter()
 let Route = useRoute()
 function handelIcon(item) {
     if (item.path) {
-        console.log(item.path);
         Router.push(item.path)
+    } else if (item.fn) {
+        if (showObj[item.fn]) {
+            console.log(showObj);
+            showObj[item.fn]()
+        } else {
+            console.warn(`没有函数${item.fn}`);
+        }
     }
 }
 </script>
@@ -70,6 +77,7 @@ function handelIcon(item) {
                 cursor: pointer;
                 color: rgb(233, 231, 227);
                 margin: 10px 0;
+
                 &:hover {
                     color: white;
                 }

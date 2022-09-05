@@ -28,7 +28,13 @@ let icons = {
     audio: 'icon-audio',
     Unsupport: 'icon-shibaibaocuo',
     image: 'icon-image',
-    yanjing:"icon-xiaoyanjing"
+    yanjing:"icon-xiaoyanjing",
+
+    yonghu:"icon-yonghu",
+    zhanghao:"icon-zhanghu",
+    password:"icon-mima",
+    tuichu:'icon-close',
+    close:"icon-guanbi"
 }
 defineProps({
     icon: {

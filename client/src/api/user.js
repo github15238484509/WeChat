@@ -23,6 +23,6 @@ export function register(data) {
 export function login(data) {
     return server.post("/api/user/login", data)
 }
-export function logout(data) {
+export function logout() {
     return server.post("/api/user/logout")
 }

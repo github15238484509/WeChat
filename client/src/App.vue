@@ -1,6 +1,7 @@
 
 <template>
   <router-view></router-view>
+  <slot></slot>
 </template>
 <script setup>
   import useUser from "@/store/user.js"

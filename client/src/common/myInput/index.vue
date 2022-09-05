@@ -9,8 +9,8 @@
                 </div>
                 <input :value="modelValue" @input="$emit('Update:modelValue', $event.target.value.trim())"
                     :placeholder="placeholder" :name="name" :type="setType">
-                <div class="icon">
-                    <Icon @click="changeType" v-if="isShowPassword" icon="yanjing" />
+                <div class="icon" v-if="isShowPassword"> 
+                    <Icon @click="changeType"  icon="yanjing" />
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@ let propData = defineProps({
     },
     icon: {
         type: String,
-        default: 'error'
+        default: ''
     },
     placeholder: {
         type: String,

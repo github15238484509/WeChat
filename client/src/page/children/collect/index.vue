@@ -4,10 +4,13 @@
             <NoneImage></NoneImage>
         </div> -->
         collect
+        <!-- <ShowLogout :startX="0" :startY="580">
+            58665
+        </ShowLogout> -->
     </div>
 </template>
 <script setup>
-import LatelyPerson from "@/components/latelyPerson/index.vue"
+import ShowLogout from "@/components/logOut/index.vue"
 import NoneImage from "@/common/none/indexImg.vue"
 
 

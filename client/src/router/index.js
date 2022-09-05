@@ -78,8 +78,8 @@ let routes = [{
     ],
 },
 {
-    path: "/login",
-    component: () => import("@/page/children/login.vue"),
+    path: "/login/:type?",
+    component: () => import("@/page/children/login/index.vue"),
 }]
 let router = createRouter({
     history: createWebHistory(),

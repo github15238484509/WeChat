@@ -1,5 +1,6 @@
 import axios from "axios";
 import userStore from "@/store/user.js"
+import showMessage from "./showMessage.js"
 
 let instance = axios.create({
     timeout: 1000,
@@ -10,6 +11,19 @@ instance.interceptors.request.use((config) => {
     return config
 })
 instance.interceptors.response.use((config) => {
+    if(config.data.code===-1){
+        showMessage({
+            type:'error',
+            text:config.data.message,
+            duration:1500
+        })
+    }
+    let authorization = config.headers.authorization
+    let refresh_authorization = config.headers.refresh_authorization
+    if(authorization&&refresh_authorization){
+        localStorage.setItem("authorization",authorization)
+        localStorage.setItem("refresh_authorization",refresh_authorization)
+    }
     return config.data
 })
 

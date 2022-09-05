@@ -26,7 +26,7 @@ let props = defineProps({
     },
     duration: {
         type: Number,
-        default: 1000
+        default: 1500
     }
 })
 let style = `transition: all ${props.duration}ms;`
@@ -39,6 +39,7 @@ let style = `transition: all ${props.duration}ms;`
     transform: translate(-50%, 0);
     opacity: 1;
     display: flex;
+    align-items: center;
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
@@ -67,6 +68,7 @@ let style = `transition: all ${props.duration}ms;`
 
     .text {
         margin: 0 10px;
+        white-space: nowrap;
     }
 }
 </style>

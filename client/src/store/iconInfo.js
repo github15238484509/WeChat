@@ -31,7 +31,14 @@ export default defineStore("iconInfo", {
                 icon: "xiaochengxu",
                 path: '/applet',
                 num: 0
-            },]
+            },
+            {
+                icon: "tuichu",
+                path: '',
+                num: 0,
+                fn:'showLogout'
+            },
+        ]
         }
     },
     actions: {

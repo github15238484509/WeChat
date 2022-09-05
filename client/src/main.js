@@ -7,5 +7,4 @@ import "@/mock/index.js"
 
 import "@/utils/getPinyin.js"
 
-
 createApp(App).use(router).use(createPinia()).mount('#app')
