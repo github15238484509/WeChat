@@ -15,6 +15,11 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
+      },
+      '/wechat': {
+        target: 'ws://localhost:3000/wechat',
+        changeOrigin: true,
+        ws:true,
       }
     }
   }

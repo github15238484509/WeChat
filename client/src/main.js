@@ -4,7 +4,8 @@ import App from './App.vue'
 import router from "./router/index.js"
 import { createPinia } from "pinia"
 import "@/mock/index.js"
-
+import initSocket from "@/socket/index.js"
+initSocket()
 import "@/utils/getPinyin.js"
 
 createApp(App).use(router).use(createPinia()).mount('#app')

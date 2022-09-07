@@ -9,25 +9,28 @@
 </head>
 
 <body>
-    <form id="form">
+    <!-- <form id="form">
         <h2 class="form-signin-heading">上传文件</h2>
         <input id="fulAvatar" name="file" type="file" class="form-control" />
         <input id="fulAvatar" name="file1" type="text" class="form-control" />
         <br />
         <button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
-    </form>
+    </form> -->
 </body>
 <script>
-    let form = document.querySelector("#form")
-    form.onsubmit = function (e) {
-        e.preventDefault()
-        fetch("http://localhost:3000/upImg",{
-            method:"POST",
-            // body: JSON.stringify({
-            //     name:456
-            // })
-            body: new FormData(this)
-        })
+
+    var socket = new WebSocket(`ws://${location.host}/wechat`);
+    socket.onmessage = function ({ data }) {
+        console.log(data);
+    }
+    socket.onopen = function () {
+        socket.send(JSON.stringify({
+            type: "authorization",
+            data: {
+                toke:4156,
+                inof:79
+            }
+        }))
     }
 </script>
 

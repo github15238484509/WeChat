@@ -2,7 +2,6 @@
 import getComponentRootDom from "./getComponentRootDom.js"
 import LogOut from "@/components/logOut/index.vue"
 import { resolveComponent, h } from "vue"
-console.log(LogOut);
 function showLogout() {
     return new Promise((resolve) => {
         let { el, app } = getComponentRootDom(LogOut, {
