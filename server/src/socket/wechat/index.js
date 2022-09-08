@@ -16,8 +16,4 @@ module.exports.wechatInit = function (request, socket, head) {
         wss.emit('connection', ws, request);
     });
 }
-// wss.addListener("message",(e,ee)=>{
-//     console.log(454599,e,ee);
-// })
-// wss.emit("message",498)
 module.exports.wss = wss

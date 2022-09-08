@@ -12,8 +12,11 @@ let fnList = {
         }
         let id = result.data.id
         ws.id = id
-        sendOkMessage(ws, null, "")
+        sendOkMessage(ws, null, "authorization")
         loopList(ws)
+    },
+    ping(ws) {
+        sendOkMessage(ws, null, "ping")
     },
 }
 
