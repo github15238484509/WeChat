@@ -1,16 +1,22 @@
 let express = require("express")
 let cookieParser = require('cookie-parser')
-let userRouter = require("./src/router/api/user")
-let path = require("path")
-let config = require("./config")
-let initSocket = require("./src/socket/index.js")
+const app = express()
+
 // let qn = require("./src/router/api/upload")
 // const multipart = require('connect-multiparty')
 // let qiniuUpload = require("./src/router/api/upload")
 // let fs = require("fs")
 // var dayjs = require('dayjs')
+let config = require("./config")
+let path = require("path")
+
+let initSocket = require("./src/socket/index.js")
+
+let userRouter = require("./src/router/api/user")
+let messageRouter = require("./src/router/api/message")
+let { authorization } = require("./src/utils/authorization")
+
 const public = path.resolve(__dirname, "./src/public")
-const app = express()
 app.use(express.static(public))
 //解析请求的为 form表单请求
 app.use(express.urlencoded({ extended: true }))
@@ -20,6 +26,7 @@ app.use(express.json({ extended: true }))
 app.use(cookieParser())
 
 app.use("/api/user", userRouter)
+app.use("/api/message",authorization, messageRouter)
 
 app.all("*", function (req, res) {
     res.send("404")

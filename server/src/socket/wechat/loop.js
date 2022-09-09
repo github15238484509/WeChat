@@ -1,7 +1,7 @@
 //这个页面是用户登陆后接回执行的函数所有函数
 let loopFn = {
     aa(){
-        console.log(4656);
+        // console.log(4656);
     }
 }
 

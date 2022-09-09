@@ -4,8 +4,11 @@ import useHistoryLately from "./historyLately.js"
 import useFriend from "./friend.js"
 import md5 from "md5"
 import showMessage from "@/utils/showMessage.js"
+import initSocket from "@/socket/index.js"
+
 async function setUserinfo(context, user) {
     context.user = user.data
+    initSocket()
     // 获取最近的聊天记录
     let HistoryPerson = useHistoryLately()
     HistoryPerson.getHistoryLately()
@@ -60,13 +63,8 @@ export default defineStore("userInfo", {
             }
         },
         async whoami() {
-
-            let token = localStorage.getItem("token") || 4656
-            if (token === null) {
-                return
-            }
             this.status = "loading..."
-            let result = await whoami(token)
+            let result = await whoami()
             if (result.code === 0) {
                 this.status = true
                 setUserinfo(this, result)

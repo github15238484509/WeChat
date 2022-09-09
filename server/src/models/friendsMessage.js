@@ -14,7 +14,8 @@ let friendsMessage = db.define("friendsMessage", {
     },
     status: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
+        allowNull: false,
+        defaultValue:false,
         comment: '消息的状态'
     },
     content: {

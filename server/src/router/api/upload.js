@@ -17,6 +17,7 @@ function getPath(path) {
     var publicDownloadUrl = bucketManager.publicDownloadUrl(config.domain, path);
     var deadline = parseInt(Date.now() / 1000) + 300;
     var privateDownloadUrl = bucketManager.privateDownloadUrl(config.domain, path, deadline);
+    return publicDownloadUrl
     return {
         privateDownloadUrl,
         publicDownloadUrl

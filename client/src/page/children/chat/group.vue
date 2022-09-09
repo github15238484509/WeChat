@@ -6,11 +6,11 @@
                 <ChatMessageHeader @iconClick="iconClick" name="5+" :num="13" icon="sandian">
                 </ChatMessageHeader>
                 <div class="messageBox">
-                    <ChatMessageContent :data="[]"></ChatMessageContent>
+                    <ChatMessageContent :data="data"></ChatMessageContent>
                 </div>
             </div>
             <div class="sendContent">
-                <chatMessageFloor></chatMessageFloor>
+                <chatMessageFloor @send="send"></chatMessageFloor>
             </div>
         </div>
     </div>
@@ -24,6 +24,7 @@ import chatMessageFloor from "@/common/chatMessage/chatMessageFloor.vue"
 
 import { useRouter, useRoute, onBeforeRouteUpdate, } from "vue-router";
 import { myDecode } from "@/utils/index.js"
+import { singleChat } from "@/api/message.js"
 import { onMounted, ref, watch, computed } from "vue"
 import useHistoryLately from "@/store/historyLately.js";
 let Router = useRouter()
@@ -41,18 +42,65 @@ function getId() {
         Router.back()
     }
 }
-
+async function send(data) {
+    let sendData = new FormData()
+    data.friendId = id.value
+    for (const key in data) {
+        if (Object.hasOwnProperty.call(data, key)) {
+            sendData.append(key,data[key])
+        }
+    }
+    console.log(data);
+    let result = await singleChat(sendData)
+}
 //获取群聊的名字等信息
 let chat = computed(() => {
     return HistoryLately.data.filter((item) => {
         return item.id === id.value
     })
 })
-let chatMessageHistory = computed(() => {
-    return HistoryLately.data.filter((item) => {
-        return item.id === id.value
-    })
-})
+let data = [{
+    name: '小刘',
+    content: '小刘小刘小刘',
+    isMe: false,
+    type: 'text'
+},
+{
+    name: '小刘',
+    content: 'https://pinia.web3doc.top/logo.svg',
+    isMe: true,
+    type: 'image'
+}, {
+    name: 'wadfa',
+    content: '小刘小dfasfsa刘小刘',
+    isMe: false,
+    type: 'txt'
+}, {
+    name: '小刘',
+    content: 'adfasfasdfasd',
+    isMe: false,
+    type: 'video'
+}, {
+    name: '小刘sadfa',
+    content: '小刘小1231321刘小刘',
+    isMe: true,
+    type: 'audio'
+}, {
+    name: 'asdf小adf刘',
+    content: 'asf',
+    isMe: true,
+    type: 'multiple'
+}, {
+    name: '5456415616',
+    content: '5465412323',
+    isMe: true
+},
+{
+    name: '5456415616545641561654564156165456415616545641561654564156165456415616545641561654564156165456415616545641561654564156165456415616545641561654564156165456415616545641561654564156165456415616545641561654564156165456415616545641561654564156165456415616',
+    content: '54564156165456415616545641561654564156165456415616545641561654564156165456415616545641561654564156165456415616',
+    isMe: true
+},
+]
 function iconClick() {
     console.log(5555);
 }
@@ -70,7 +118,7 @@ onBeforeRouteUpdate(getId)
         flex: 1;
         box-sizing: border-box;
         padding: 20px;
-        background-color: antiquewhite;
+        background-color: rgb(245, 245, 245);
         display: flex;
         justify-content: space-between;
         flex-direction: column;

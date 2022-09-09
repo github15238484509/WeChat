@@ -9,6 +9,7 @@ export default () => {
         ws.onmessage = function ({ data }) {
             let newData = JSON.parse(data)
             const event = new Event(newData.type);
+            event.data = newData
             ws.dispatchEvent(event)
         }
         ws.onclose = function () {

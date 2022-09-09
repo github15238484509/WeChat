@@ -96,7 +96,6 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         if (sotre.status === false) {
-            console.log(router);
             next("/login")
         } else {
             next()

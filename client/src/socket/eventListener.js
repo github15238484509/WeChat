@@ -6,7 +6,14 @@ let ping = debounce(function () {
         type: 'ping',
     }))
 }, 3000)
-
+//好友发送的消息
+function singleChat(e) {
+    console.log(e.data);
+}
+//好友发送的消息
+// function singleChat(e) {
+//     console.log(e.data);
+// }
 export default function initEvent(ws) {
     ws.send(JSON.stringify({
         type: "authorization",
@@ -17,4 +24,5 @@ export default function initEvent(ws) {
     }))
     ws.addEventListener("authorization", ping)
     ws.addEventListener("ping", ping)
+    ws.addEventListener("singleChat", singleChat)
 }
