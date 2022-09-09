@@ -23,7 +23,7 @@ function itemClick(item) {
 </script>
 <style lang="less" scoped>
 .indexContainer {
-    width: 180px;
+    // width: 180px;
     height: 100%;
 }
 </style>

@@ -1,6 +1,20 @@
 <template>
     <div class="friend-container">
-        <FriendList></FriendList>
+        <div class="search">
+            <div class="searchTitle">
+                <div class="input">
+                    <Myinput v-model="searchText" @enter="searchHandle" name="search" :placeholder="searchPlaceholder">
+                    </Myinput>
+                </div>
+                <div class="add" @click="isSearch=!isSearch,searchText=''">
+                    <Icon v-if="isSearch" icon="add"></Icon>
+                    <Icon v-else icon="close"></Icon>
+                </div>
+            </div>
+            <div class="searchContent">
+                <FriendList></FriendList>
+            </div>
+        </div>
         <div class="rightContainer">
             <FriendInfo v-if="id"></FriendInfo>
             <NoneImage v-else></NoneImage>
@@ -11,8 +25,12 @@
 import NoneImage from "@/common/none/indexImg.vue"
 import FriendList from "@/components/friendList/index.vue"
 import FriendInfo from "./friendInfo.vue"
-import { watch,ref } from "vue";
+import Myinput from "@/common/myInput/index.vue"
+import Icon from "@/common/icon/index.vue"
+import { watch, ref, computed } from "vue";
 import { useRoute } from "vue-router"
+import { searchUser } from "@/api/user.js"
+
 let Route = useRoute()
 let id = ref(false)
 watch(Route, () => {
@@ -24,6 +42,23 @@ watch(Route, () => {
 }, {
     immediate: true
 })
+let isSearch = ref(true)
+let searchText = ref("")
+let searchPlaceholder = computed(() => {
+    return isSearch.value ? '搜索' : '请输入账号'
+})
+async function searchHandle() {
+    let search = searchText.value.trim()
+    if (!search) return;
+    if (isSearch.value) {
+        console.log('搜索好友');
+    } else {
+        let result = await searchUser(search)
+        if(result.data){
+            // showAddFriend(result.data)
+        }
+    }
+}
 
 </script>
 <style lang="less" scoped>
@@ -39,6 +74,46 @@ watch(Route, () => {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
+    }
+
+    .search {
+        display: flex;
+        // justify-content: space-between;
+        flex-direction: column;
+        width: 200px;
+        overflow: hidden;
+
+        .searchTitle {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            border-bottom: 2px solid #e7e5e5;
+
+            .input {
+                flex: 1;
+                overflow: hidden;
+                margin-left: 5px;
+
+                :deep(.myInput-container) {
+                    margin: 0;
+                }
+            }
+
+            .add {
+                cursor: pointer;
+                width: 30px;
+                min-width: 30px;
+                font-size: 1.3rem;
+            }
+        }
+
+        .searchContent {
+            flex: 1;
+            overflow: hidden;
+        }
     }
 }
 </style>

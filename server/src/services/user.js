@@ -116,8 +116,40 @@ async function whoami(id) {
         message: "用户不存在"
     }
 }
+
+//以账号搜索名字
+async function searchUser(account) {
+    if (!account) {
+        return {
+            data: null,
+            status: false,
+            message: "account为空"
+        }
+    }
+    let user = await User.findOne({
+        where: {
+            account
+        },
+        attributes: ["id", "name", "status","profile",'account']
+    });
+    if (user) {
+        return {
+            data: user.toJSON(),
+            status: true,
+            message: '查找成功'
+        }
+    }
+    return {
+        data: null,
+        status: false,
+        message: "用户不存在"
+    }
+}
+
+
 module.exports.addUser = addUser
 module.exports.getUser = getUser
 module.exports.login = login
 module.exports.logout = logout
 module.exports.whoami = whoami
+module.exports.searchUser = searchUser

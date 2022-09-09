@@ -25,6 +25,7 @@ const ClassGrand = db.define("users", {
     profile: {
         type: DataTypes.STRING,
         allowNull: true,
+        defaultValue:'https://cn.vitejs.dev/logo.svg'
     }
 }, {
     paranoid: true

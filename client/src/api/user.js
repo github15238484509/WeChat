@@ -26,3 +26,6 @@ export function login(data) {
 export function logout() {
     return server.post("/api/user/logout")
 }
+export function searchUser(account) {
+    return server.get(`/api/user/searchUser?account=${account}`)
+}

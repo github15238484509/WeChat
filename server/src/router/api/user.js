@@ -1,5 +1,5 @@
 let router = require("express").Router()
-let { addUser, getUser, login, logout, whoami } = require("../../services/user")
+let { addUser, getUser, login, logout, whoami, searchUser } = require("../../services/user")
 let { sendError, sendOk, sendOkError } = require("../../utils/sendCode")
 let filterObject = require("../../utils/filterObj.js")
 let { publish, clearPublish } = require("../jwt.js")
@@ -66,5 +66,21 @@ router.post("/register", async function (req, res) {
         return sendOkError(res, result.message)
     }
 })
+
+
+router.get("/searchUser", async function (req, res) {
+    let body = req.query
+    let okName = ["account"]
+    let result = await filterObject(body, okName)
+    console.log(result);
+    if (!result.status) {
+        return sendOkError(res, result.message)
+    }
+    result = await searchUser(result.data.account)
+    return sendOk(res, result.data, result.message)
+})
+
+
+
 
 module.exports = router

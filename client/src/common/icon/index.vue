@@ -34,7 +34,8 @@ let icons = {
     zhanghao:"icon-zhanghu",
     password:"icon-mima",
     tuichu:'icon-close',
-    close:"icon-guanbi"
+    close:"icon-guanbi",
+    add:"icon-icon_tianjia",
 }
 defineProps({
     icon: {
