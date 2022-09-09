@@ -4,7 +4,7 @@
         <slot></slot>
     </button>
 </template>
-  <script setup name="MyButton">
+<script setup name="MyButton">
 import { computed, ref } from "vue"
 let propsData = defineProps({
     type: {
@@ -32,43 +32,43 @@ let classStatus = computed(() => {
     }
 })
 </script>
-  <style lang="less" scoped>
-  .button-container {
-      padding: 10px;
-      border: none;
-      cursor: pointer;
-      color: inherit;
-      border-radius: 5px;
-      min-width: 100px;
-      display: inline-block;
-      vertical-align: middle;
-      text-align: center;
-      color: white;
-  }
-  
-  .primary {
-      background-color: #409eff;
-      border: 1px solid #409eff;
-  }
-  
-  .success {
-      background-color: #67c23a;
-      border: 1px solid #67c23a;
-  }
-  
-  .info {
-      background-color: #909399;
-      border: 1px solid #909399;
-  }
-  
-  .warning {
-      background-color: #e6a23c;
-      border: 1px solid #e6a23c;
-  }
-  
-  .danger {
-      background-color: #f56c6c;
-      border: 1px solid #f56c6c;
-  }
-  </style>
+<style lang="less" scoped>
+.button-container {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    border-radius: 5px;
+    min-width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+}
+
+.primary {
+    background-color: #409eff;
+    border: 1px solid #409eff;
+}
+
+.success {
+    background-color: #67c23a;
+    border: 1px solid #67c23a;
+}
+
+.info {
+    background-color: #909399;
+    border: 1px solid #909399;
+}
+
+.warning {
+    background-color: #e6a23c;
+    border: 1px solid #e6a23c;
+}
+
+.danger {
+    background-color: #f56c6c;
+    border: 1px solid #f56c6c;
+}
+</style>
   
