@@ -10,6 +10,13 @@ let ping = debounce(function () {
 function singleChat(e) {
     console.log(e.data);
 }
+function addFriend(e) {
+    // console.log(e.data);
+    console.log('有人加我好友了');
+}
+function approveFriend(e) {
+    console.log('好友同意了');
+}
 //好友发送的消息
 // function singleChat(e) {
 //     console.log(e.data);
@@ -25,4 +32,6 @@ export default function initEvent(ws) {
     ws.addEventListener("authorization", ping)
     ws.addEventListener("ping", ping)
     ws.addEventListener("singleChat", singleChat)
+    ws.addEventListener("addFriend", addFriend)
+    ws.addEventListener("approveFriend", approveFriend)
 }

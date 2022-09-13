@@ -1,7 +1,7 @@
 let authorizationSocket = require("./sendAuthorization.js")
 let loopList = require("./loop")
 let { verify } = require("../../router/jwt")
-let fnList = {
+let SocketFnList = {
     authorization(ws, data) {
         let result = verify(data.authorization)
         if (!result.status) {
@@ -18,14 +18,22 @@ let fnList = {
     ping(ws) {
         sendOkMessage(ws, null, "ping")
     },
+    //添加好友
+    addFriend(ws){
+        sendOkMessage(ws, null, "addFriend")
+    },
+    //好友同意
+    approveFriend(ws,data){
+        sendOkMessage(ws, data, "approveFriend")
+    }
 }
-
-module.exports = function (ws, data, wsList) {
+module.exports.messageHandle = SocketFnList
+module.exports.message = function (ws, data, wsList) {
     let newData = null
     try {
         newData = JSON.parse(data.toString())
         if (typeof newData === "object") {
-            let fn = fnList[newData.type]
+            let fn = SocketFnList[newData.type]
             if (fn) {
                 if (newData.type === "authorization") {
                     fn(ws, newData.data, wsList)

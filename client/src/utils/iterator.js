@@ -7,4 +7,4 @@ const iterator = {
         return result
     }
 }
-export default iterator.next
+export default iterator

@@ -68,15 +68,14 @@ router.post("/register", async function (req, res) {
 })
 
 
-router.get("/searchUser", async function (req, res) {
+router.get("/searchUser",authorization, async function (req, res) {
     let body = req.query
     let okName = ["account"]
     let result = await filterObject(body, okName)
-    console.log(result);
     if (!result.status) {
         return sendOkError(res, result.message)
     }
-    result = await searchUser(result.data.account)
+    result = await searchUser(result.data.account,req.id)
     return sendOk(res, result.data, result.message)
 })
 

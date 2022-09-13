@@ -13,9 +13,15 @@ let friends = db.define("friends", {
         comment: '朋友的id'
     },
     status: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.TEXT,
         allowNull: true,
-        comment: '和朋友的关系'
+        comment: '与朋友的状态，0代表添加中，1：同意，2：拒绝'
+    },
+    realStatus:{
+        type: DataTypes.BOOLEAN,
+        defaultValue:false,
+        allowNull: false,
+        comment: '是否是好友'
     },
     realNanme: {
         type: DataTypes.STRING,

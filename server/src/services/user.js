@@ -1,6 +1,7 @@
 let uuid = require("../utils/uuid")
 let User = require("../models/users")
 let filterObject = require("../utils/filterObj")
+let { Op } = require("sequelize")
 async function addUser(data) {
     let okName = ["name", "account", 'password']
     let result = await filterObject(data, okName)
@@ -36,7 +37,7 @@ async function login(data) {
     if (result.status) {
         let user = await User.findOne({
             where: result.data,
-            attributes: ["id", "name", "status","profile"]
+            attributes: ["id", "name", "status", "profile"]
         });
         if (user) {
             user.status = true
@@ -101,7 +102,7 @@ async function whoami(id) {
         where: {
             id
         },
-        attributes: ["id", "name", "status","profile"]
+        attributes: ["id", "name", "status", "profile"]
     });
     if (user) {
         return {
@@ -118,7 +119,7 @@ async function whoami(id) {
 }
 
 //以账号搜索名字
-async function searchUser(account) {
+async function searchUser(account, id) {
     if (!account) {
         return {
             data: null,
@@ -126,15 +127,19 @@ async function searchUser(account) {
             message: "account为空"
         }
     }
-    let user = await User.findOne({
+    let user = await User.findAndCountAll({
         where: {
-            account
+            account: {
+                [Op.substring]: account
+            }
         },
-        attributes: ["id", "name", "status","profile",'account']
+        attributes: ["id", "name", "status", "profile", 'account']
     });
+    user = user.rows
+    user = user.map((item) => item.toJSON()).filter((it) => it.id !== id)
     if (user) {
         return {
-            data: user.toJSON(),
+            data: user,
             status: true,
             message: '查找成功'
         }

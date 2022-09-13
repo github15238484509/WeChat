@@ -3,8 +3,8 @@
         <!-- <div class="rightContainer">
             <NoneImage></NoneImage>
         </div> -->
-        <UserInfo @click="clickHandler" btnText="添加好友" name="46" profile="https://pinia.web3doc.top/logo.svg">
-        </UserInfo>
+        <!-- <UserInfo @click="clickHandler" btnText="添加好友" name="46" profile="https://pinia.web3doc.top/logo.svg">
+        </UserInfo> -->
         circle
     </div>
 </template>
@@ -12,11 +12,14 @@
 import LatelyPerson from "@/components/latelyPerson/index.vue"
 import UserInfo from "@/common/userInfo/index.vue"
 import showUserInfo from "@/utils/showUserInfo.js"
-function clickHandler(data) {
-    showUserInfo({
+async function clickHandler(data) {
+    let dom = showUserInfo({
         btnText: "添加好友",
         name: "46",
         profile: "https://pinia.web3doc.top/logo.svg",
+        onClick: function (e, ee) {
+            console.log(55, e, dom, ee);
+        }
     })
 }
 

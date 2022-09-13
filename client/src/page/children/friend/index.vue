@@ -6,13 +6,14 @@
                     <Myinput v-model="searchText" @enter="searchHandle" name="search" :placeholder="searchPlaceholder">
                     </Myinput>
                 </div>
-                <div class="add" @click="isSearch=!isSearch,searchText=''">
+                <div class="add" @click="changeSearch">
                     <Icon v-if="isSearch" icon="add"></Icon>
                     <Icon v-else icon="close"></Icon>
                 </div>
             </div>
             <div class="searchContent">
-                <FriendList></FriendList>
+                <FriendList v-if="isSearch"></FriendList>
+                <SearchFriendS v-else :data="searchData.data"></SearchFriendS>
             </div>
         </div>
         <div class="rightContainer">
@@ -24,10 +25,11 @@
 <script setup>
 import NoneImage from "@/common/none/indexImg.vue"
 import FriendList from "@/components/friendList/index.vue"
+import SearchFriendS from "@/components/searchFriends/index.vue"
 import FriendInfo from "./friendInfo.vue"
 import Myinput from "@/common/myInput/index.vue"
 import Icon from "@/common/icon/index.vue"
-import { watch, ref, computed } from "vue";
+import { watch, ref, computed, reactive } from "vue";
 import { useRoute } from "vue-router"
 import { searchUser } from "@/api/user.js"
 
@@ -47,6 +49,9 @@ let searchText = ref("")
 let searchPlaceholder = computed(() => {
     return isSearch.value ? '搜索' : '请输入账号'
 })
+let searchData = reactive({
+    data: []
+})
 async function searchHandle() {
     let search = searchText.value.trim()
     if (!search) return;
@@ -54,10 +59,20 @@ async function searchHandle() {
         console.log('搜索好友');
     } else {
         let result = await searchUser(search)
-        if(result.data){
-            // showAddFriend(result.data)
+        if (result.data) {
+            searchData.data = result.data.map((item) => {
+                item.message = item.account
+                item.src = item.profile
+                return item
+            })
         }
     }
+}
+
+function changeSearch() {
+    isSearch.value = !isSearch.value
+    searchText.value = ''
+    searchData.data = []
 }
 
 </script>

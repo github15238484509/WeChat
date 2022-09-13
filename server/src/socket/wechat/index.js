@@ -1,5 +1,5 @@
 let close = require("./close")
-let message = require("./message")
+let {message} = require("./message")
 const { WebSocketServer } = require("ws");
 const wss = new WebSocketServer({ clientTracking: true, noServer: true });
 wss.on('connection', function (ws, request) {

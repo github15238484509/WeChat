@@ -1,20 +1,37 @@
 import getComponentRootDom from "./getComponentRootDom.js"
 import UserInfo from "@/common/UserInfo/index.vue"
-import { defineComponent, h, createApp } from "vue"
+import { defineComponent, h, createApp, withModifiers } from "vue"
+import iterator from "@/utils/iterator"
+
 let body = document.body
-let div = document.createElement("div")
-body.appendChild(div)
+let flage = null
 export default function showUserInfo(option) {
+    if(flage)return
+    let div = document.createElement("div")
+    flage =div
+    div.style.position = 'fixed'
+    div.style.background = 'white'
+    div.style.zIndex = iterator.next()
+    div.style.left = option.left ? `${option.left}px` : '50%'
+    div.style.top = option.top ? `${option.top}px` : '50%'
+    let props = {
+        btnText: option.btnText,
+        name: option.name,
+        profile: option.profile,
+        nameList: option.nameList,
+        onClick: withModifiers((...arg) => {
+            option.onClick && option.onClick(div, arg)
+            flage = null
+        }, [])
+    }
     return new Promise((resolve) => {
-        let a = defineComponent({
+        let dom = defineComponent({
             render() {
-                return h(UserInfo, option)
+                return h(UserInfo, props)
             }
         })
-        createApp(a).mount(div)
-        // console.log(el, app);
-        // el.style.position = 'fixed'
-        // el.style.left = '200px'
-        // el.style.top = '200px'
+        body.appendChild(div)
+        createApp(dom).mount(div)
+        resolve(div)
     })
 }

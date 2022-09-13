@@ -5,7 +5,7 @@ import useFriend from "./friend.js"
 import md5 from "md5"
 import showMessage from "@/utils/showMessage.js"
 import initSocket from "@/socket/index.js"
-
+import router from "@/router"
 async function setUserinfo(context, user) {
     context.user = user.data
     initSocket()
@@ -70,6 +70,7 @@ export default defineStore("userInfo", {
                 setUserinfo(this, result)
             } else {
                 this.status = false
+                router.push("/login")
             }
         }
     },

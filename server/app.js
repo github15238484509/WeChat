@@ -14,6 +14,7 @@ let initSocket = require("./src/socket/index.js")
 
 let userRouter = require("./src/router/api/user")
 let messageRouter = require("./src/router/api/message")
+let fridensRouter = require("./src/router/api/friend")
 let { authorization } = require("./src/utils/authorization")
 
 const public = path.resolve(__dirname, "./src/public")
@@ -27,6 +28,7 @@ app.use(cookieParser())
 
 app.use("/api/user", userRouter)
 app.use("/api/message",authorization, messageRouter)
+app.use("/api/friend",authorization, fridensRouter)
 
 app.all("*", function (req, res) {
     res.send("404")

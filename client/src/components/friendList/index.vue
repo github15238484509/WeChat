@@ -7,8 +7,8 @@
 </template>
 <script setup>
 import PersonContainer from "@/common/customScroll/index.vue"
-import useFriend from "@/store/friend.js";
 import PersonItem from "../latelyPerson/personItem.vue"
+import useFriend from "@/store/friend.js";
 import { useRouter } from "vue-router"
 import { myEncode } from "@/utils/index.js"
 let friends = useFriend()
