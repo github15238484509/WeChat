@@ -11,14 +11,17 @@
                     <Icon v-else icon="close"></Icon>
                 </div>
             </div>
+            <!-- :class="{active:rou}" -->
+            <div class="newFriend" @click="goNewFriend" >
+                <Icon icon="close"></Icon>新的朋友
+            </div>
             <div class="searchContent">
                 <FriendList v-if="isSearch"></FriendList>
                 <SearchFriendS v-else :data="searchData.data"></SearchFriendS>
             </div>
         </div>
         <div class="rightContainer">
-            <FriendInfo v-if="id"></FriendInfo>
-            <NoneImage v-else></NoneImage>
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -26,15 +29,21 @@
 import NoneImage from "@/common/none/indexImg.vue"
 import FriendList from "@/components/friendList/index.vue"
 import SearchFriendS from "@/components/searchFriends/index.vue"
-import FriendInfo from "./friendInfo.vue"
 import Myinput from "@/common/myInput/index.vue"
 import Icon from "@/common/icon/index.vue"
 import { watch, ref, computed, reactive } from "vue";
-import { useRoute } from "vue-router"
+import { useRoute,useRouter } from "vue-router"
 import { searchUser } from "@/api/user.js"
 
 let Route = useRoute()
+let Router = useRouter()
+function goNewFriend(){
+    Router.push({
+        name:'newfriend'
+    })
+}
 let id = ref(false)
+console.log(Route);
 watch(Route, () => {
     if (Route.params.id) {
         id.value = true
@@ -122,6 +131,20 @@ function changeSearch() {
                 width: 30px;
                 min-width: 30px;
                 font-size: 1.3rem;
+            }
+        }
+
+        .newFriend {
+            height: 40px;
+            align-items: center;
+            display: flex;
+            border-bottom: 1px solid red;
+            cursor: pointer;
+            &.active{
+                background-color: rgb(222, 222, 222);
+            }
+            :deep(.icon-container) {
+                width: 40px;
             }
         }
 

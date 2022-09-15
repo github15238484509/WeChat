@@ -8,3 +8,7 @@ export function getFriendInfo(id) {
 export function addFriend(id) {
     return server.get(`/api/friend/addFriend?id=${id}`)
 }
+
+export function getNewFriend() {
+    return server.get(`/api/friend/newfriend`)
+}

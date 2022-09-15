@@ -1,5 +1,6 @@
 let uuid = require("../utils/uuid")
 let Friends = require("../models/friends.js")
+let { whoami } = require("./user")
 let filterObject = require("../utils/filterObj")
 let { Op } = require("sequelize")
 // 单方面的添加好友
@@ -74,16 +75,16 @@ async function approve(meId, friendId) {
         friend = friend.toJSON()
         me = friend.me()
         if (me.status === "0" && friend === "1") {
-            me.status="1"
-            friend.status="1"
-            me.realStatus=true
-            friend.realStatus=true
+            me.status = "1"
+            friend.status = "1"
+            me.realStatus = true
+            friend.realStatus = true
             me.save()
             friend.save()
             return {
                 data: {
-                    me:me.toJSON(),
-                    friend:friend.toJSON(),
+                    me: me.toJSON(),
+                    friend: friend.toJSON(),
                 },
                 status: true,
                 message: '已同意'
@@ -104,5 +105,36 @@ async function approve(meId, friendId) {
     }
 }
 
+let cache = {}
+async function getNewFrind(id) {
+    let {count,rows} = await Friends.findAndCountAll({
+        where: {
+            friendId: id,
+        },
+        limit: 100 ,
+        attributes: [["meId","friendId"], "realNanme", "realStatus", "status"]
+    })
+        let sendData = { rows: [] }
+        sendData.count = count
+        for (const item of rows) {
+            let toJSON = item.toJSON()
+            if (!cache[toJSON.friendId]) {
+                let { data: { name, profile } } = await whoami(toJSON.friendId)
+                cache[toJSON.friendId] = { name, profile }
+            }
+            toJSON = {
+                ...toJSON,
+                ...cache[toJSON.friendId]
+            }
+            sendData.rows.push(toJSON)
+        }
+        return {
+            message: '查找成功',
+            data: sendData,
+            status: true
+        }
+}
+
 module.exports.addSingleFriend = addSingleFriend
 module.exports.approve = approve
+module.exports.getNewFrind = getNewFrind

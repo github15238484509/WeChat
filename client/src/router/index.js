@@ -19,12 +19,25 @@ let routes = [{
             }
         },
         {//好友信息页面
-            path: "friend/:id?",
+            path: "friend",
             name: "friend",
             component: () => import("@/page/children/friend/index.vue"),
             meta: {
                 IsShowSide: true
-            }
+            },
+            children:[{
+                path: "",
+                name:'friendnone',
+                component: () => import("@/common/none/indexImg.vue"),
+            },{
+                path: "info/:id?",
+                name:'friendInfo',
+                component: () => import("@/page/children/friend/friendInfo.vue"),
+            },{
+                path: "newfriend",
+                name: "newfriend",
+                component: () => import("@/page/children/friend/newFriend.vue"),
+            }]
         },
         {   //聊天页面
             path: "chat/:id",

@@ -1,5 +1,5 @@
 let router = require("express").Router()
-let { addSingleFriend, approve } = require("../../services/friend")
+let { addSingleFriend, approve, getNewFrind } = require("../../services/friend")
 let { sendError, sendOk, sendOkError } = require("../../utils/sendCode")
 let filterObject = require("../../utils/filterObj.js")
 const multipart = require('connect-multiparty')
@@ -44,17 +44,17 @@ router.get("/addFriend", async function (req, res) {
 // 同意好友
 router.get("/approveFriend", async function (req, res) {
     let id = req.query.id
-    if(!id){
+    if (!id) {
         return sendOkError(res, '请传递好友id')
     }
     let result = await approve(req.id, id)
     if (result.status) {
         wss.clients.forEach((item) => {
             if (item.id === id) {
-                messageHandle.approveFriend(item,result.data.me)
+                messageHandle.approveFriend(item, result.data.me)
             }
-            if(item.id === req.id){
-                messageHandle.approveFriend(item,result.data.friend)
+            if (item.id === req.id) {
+                messageHandle.approveFriend(item, result.data.friend)
             }
         })
         return sendOk(res, null, result.message)
@@ -62,4 +62,16 @@ router.get("/approveFriend", async function (req, res) {
         return sendOkError(res, result.message)
     }
 })
+router.get("/newfriend", async function (req, res) {
+    let id = req.id
+    let result = await getNewFrind(id)
+    if (result.status) {
+        return sendOk(res, result.data, result.message)
+    } else {
+        return sendOkError(res, result.message)
+    }
+})
+
+
+
 module.exports = router

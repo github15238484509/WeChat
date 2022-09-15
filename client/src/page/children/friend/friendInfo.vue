@@ -23,6 +23,7 @@ async function getFriend(id) {
 }
 watch(Route, () => {
     let newId = Route.params.id
+    if(!newId)return
     id.value = myDecode(newId)
     getFriend(id.value)
 }, {

@@ -15,6 +15,7 @@ let friends = useFriend()
 let router = useRouter()
 function itemClick(item) {
     router.push({
+        name: 'friendInfo',
         params: {
             id: myEncode(item.id)
         }
